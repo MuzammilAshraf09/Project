@@ -1,0 +1,284 @@
+﻿@{
+    ViewData["Title"] = "User Dashboard";
+    var isLoggedIn = ViewData["IsLoggedIn"] as bool? ?? false;
+    var username = ViewData["Username"] as string ?? string.Empty;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Unique Clothing for Pets</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #212121;
+            color: #fff;
+        }
+
+        .navbar, .footer {
+            background-color: #333;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: #fff;
+        }
+
+            .navbar-brand:hover,
+            .nav-link:hover {
+                color: #c00;
+            }
+
+        .btn-primary {
+            background-color: #f00;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #c00;
+            }
+
+        .card {
+            background-color: #444;
+            border: 1px solid #555;
+        }
+
+        .card-title,
+        .card-text,
+        .card-footer,
+        .footer a {
+            color: #fff;
+        }
+
+        .footer {
+            padding: 20px 0;
+        }
+
+            .footer a:hover {
+                color: #c00;
+            }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .hero-section {
+            padding: 60px 0;
+            text-align: center;
+            background: url('hero-image.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+                color: #fff;
+            }
+
+        .categories {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+            .categories .btn-category {
+                margin: 10px;
+                color: #fff;
+                background-color: #333;
+                border-color: #f00;
+            }
+
+                .categories .btn-category:hover {
+                    color: #fff;
+                    background-color: #f00;
+                }
+
+        .featured-section,
+        .blog-section {
+            padding: 40px 0;
+        }
+
+        .featured-section .card,
+            .blog-section .card {
+                margin-bottom: 30px;
+            }
+
+
+        .active-link {
+            color: red;
+            font-weight: bold; /* Optional: Make the active link bold */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="container-fluid bg-dark text-center py-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="display-5">Welcome, @username</h1>
+            <div>
+                @if (!isLoggedIn)
+                {
+                    <a href="/User/Login" class="btn btn-outline-light me-2">Login</a>
+                    <a href="/User/SignUp" class="btn btn-danger">Sign Up</a>
+                }
+                else
+                {
+                    <a href="/User/Logout" class="btn btn-danger ms-2">Logout</a>
+                }
+            </div>
+        </div>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Fashion Fusion</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Order/Index">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Product/Index">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/CartItems/Index">Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1>Discover unique clothing stores for your furry friends</h1>
+            <form class="d-flex justify-content-center mt-4">
+                <input class="form-control me-2 w-50" type="search" placeholder="Search for stores" aria-label="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <!-- Categories Section -->
+    <section class="categories py-5">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <a href="/Category/Index" class="btn btn-category">Category 1</a>
+                <a href="/Category/Index" class="btn btn-category">Category 2</a>
+                <a href="/Category/Index" class="btn btn-category">Category 3</a>
+                <a href="/Category/Index" class="btn btn-category">Category 4</a>
+                <a href="/Category/Index" class="btn btn-category">Category 5</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="featured-section py-5">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="product1.jpg" class="card-img-top" alt="Product 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Name</h5>
+                            <p class="card-text">Short description of the product.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>$49.99</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="product2.jpg" class="card-img-top" alt="Product 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Name</h5>
+                            <p class="card-text">Short description of the product.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>$59.99</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="product3.jpg" class="card-img-top" alt="Product 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Name</h5>
+                            <p class="card-text">Short description of the product.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>$39.99</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section py-5">
+        <div class="container">
+            <h2 class="section-title">Latest from the Blog</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="blog1.jpg" class="card-img-top" alt="Blog Post 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Blog Post Title</h5>
+                            <p class="card-text">Brief summary of the blog post.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>Posted on January 1, 2024</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="blog2.jpg" class="card-img-top" alt="Blog Post 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Blog Post Title</h5>
+                            <p class="card-text">Brief summary of the blog post.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>Posted on February 1, 2024</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="blog3.jpg" class="card-img-top" alt="Blog Post 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Blog Post Title</h5>
+                            <p class="card-text">Brief summary of the blog post.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>Posted on March 1, 2024</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
