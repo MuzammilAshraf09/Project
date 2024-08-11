@@ -25,11 +25,8 @@ namespace Project.Controllers
         public IActionResult Details(int id)
         {
             var product = _productRepository.GetById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
+           
+            return View();
         }
 
         // GET: Product/Create
@@ -54,11 +51,8 @@ namespace Project.Controllers
         public IActionResult Edit(int id)
         {
             var product = _productRepository.GetById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
+            
+            return View();
         }
 
         // POST: Product/Edit/5
@@ -79,11 +73,8 @@ namespace Project.Controllers
         public IActionResult Delete(int id)
         {
             var product = _productRepository.GetById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
+            
+            return View();
         }
 
         // POST: Product/Delete/
@@ -92,6 +83,18 @@ namespace Project.Controllers
         {
             _productRepository.Delete(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Index2()
+        {
+            var products = _productRepository.GetAll();
+            return View(products);
+        }
+        public IActionResult Review(int id)
+        {
+            var product = _productRepository.GetById(id);
+            return View();
+
         }
     }
 }

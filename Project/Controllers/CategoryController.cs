@@ -28,11 +28,8 @@
         public IActionResult Details(int id)
         {
             var category = _categoryRepository.GetCategoryById(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
+           
+            return View();
         }
 
         // GET: Category/Create
@@ -82,11 +79,8 @@
         public IActionResult Delete(int id)
         {
             var category = _categoryRepository.GetCategoryById(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
+           
+            return View();
         }
 
         // POST: Category/Delete/5

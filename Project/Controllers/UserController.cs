@@ -47,7 +47,7 @@ namespace Project.Controllers
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");
-            return View();
+            return View(user);
         }
 
         public IActionResult SignUp()
@@ -75,7 +75,6 @@ namespace Project.Controllers
                 if (!userExists)
                 {
                     _userRepository.Add(user);
-                    // Automatically log in after signing up
                     Response.Cookies.Append("username", user.Username, new CookieOptions
                     {
                         Expires = DateTimeOffset.UtcNow.AddDays(7),

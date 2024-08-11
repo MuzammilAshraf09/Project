@@ -26,11 +26,8 @@ namespace Project.Controllers
         public IActionResult Details(int id)
         {
             var cartItem = _cartItemsRepository.GetCartItemById(id);
-            if (cartItem == null)
-            {
-                return NotFound();
-            }
-            return View(cartItem);
+           
+            return View();
         }
 
         // GET: CartItem/Create
@@ -55,11 +52,8 @@ namespace Project.Controllers
         public IActionResult Delete(int id)
         {
             var cartItem = _cartItemsRepository.GetCartItemById(id);
-            if (cartItem == null)
-            {
-                return NotFound();
-            }
-            return View(cartItem);
+           
+            return View();
         }
 
         // POST: CartItem/Delete/5

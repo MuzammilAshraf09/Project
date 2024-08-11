@@ -38,6 +38,42 @@
                 background-color: #c00;
             }
 
+        .btn {
+            background-color: #f00; /* Default button color */
+            border: none;
+            color: #fff;
+        }
+
+            .btn:hover {
+                background-color: #c00; /* Button hover color */
+                color: #fff;
+            }
+
+        .btn-outline-light {
+            border-color: #f00;
+            color: #fff;
+        }
+
+            .btn-outline-light:hover {
+                background-color: #f00;
+                border-color: #f00;
+                color: #fff;
+            }
+
+        .dropdown-menu {
+            background-color: #333;
+            border: none;
+        }
+
+        .dropdown-item {
+            color: #fff;
+        }
+
+            .dropdown-item:hover {
+                background-color: #f00;
+                color: #fff;
+            }
+
         .card {
             background-color: #444;
             border: 1px solid #555;
@@ -69,22 +105,23 @@
             overflow: hidden;
             margin: 0 auto; /* Center the wrapper itself */
         }
+
         .banner-image {
             width: 100%;
             max-width: 900px;
             height: 400px;
             object-fit: cover;
-            
-            border-radius: 20px; 
+            border-radius: 20px;
         }
 
         .card-img-top {
-            width: 355px; /* Set the width */
-            height: 230px; /* Set the height */
+            width: 350px; /* Set the width */
+            height: 235px; /* Set the height */
             object-fit: cover; /* Ensures the image covers the area without stretching */
             border-radius: 5px; /* Optional: rounded corners */
         }
     </style>
+
 </head>
 <body>
     <!-- Header -->
@@ -94,17 +131,33 @@
             <div>
                 @if (!isLoggedIn)
                 {
-                    <a href="/User/Login" class="btn btn-outline-light me-2">Login</a>
-                    <a href="/User/SignUp" class="btn btn-danger">Sign Up</a>
+                    <!-- Buyer and Seller buttons -->
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-light dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false">
+                            Buyer
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/User/Login">Login</a></li>
+                            <li><a class="dropdown-item" href="/User/SignUp">Sign Up</a></li>
+                        </ul>
+
+                        <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Seller
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Admin/Login">Login</a></li>
+                        </ul>
+                    </div>
                 }
                 else
                 {
                     <span class="text-light">Welcome, @username!</span>
-                    <a href="/User/Logout" class="btn btn-danger ms-2">Logout</a>
+                    <a href="@(username == "Admin" ? "/Admin/Logout" : "/User/Logout")" class="btn btn-danger ms-2">Logout</a>
                 }
             </div>
         </div>
-        </div>
+
+
         <div class="banner-wrapper mt-4">
             <img src="~/images/banner.webp" class="banner-image img-fluid" alt="Store Banner">
         </div>
@@ -122,6 +175,30 @@
             <div class="row">
                 <!-- New arrivals items -->
                 <!-- Example item -->
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="~/images/p1.jpeg" class="card-img-top" alt="Product 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Long Coat</h5>
+                            <p class="card-text">High Quality wool Coat.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>$99.99</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="~/images/p1.jpeg" class="card-img-top" alt="Product 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Long Coat</h5>
+                            <p class="card-text">High Quality wool Coat.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>$99.99</small>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <div class="card mb-4">
                         <img src="~/images/p1.jpeg" class="card-img-top" alt="Product 1">
@@ -157,6 +234,30 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="~/images/p2.webp" class="card-img-top" alt="Product 4">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Name</h5>
+                            <p class="card-text">Brief description of the product.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>$99.99</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="~/images/p2.webp" class="card-img-top" alt="Product 4">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Name</h5>
+                            <p class="card-text">Brief description of the product.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>$99.99</small>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -180,13 +281,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="~/images/p3.jpeg" class="card-img-top" alt="Product 7">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Name</h5>
+                            <p class="card-text">Brief description of the product.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>$99.99</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="~/images/p3.jpeg" class="card-img-top" alt="Product 7">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Name</h5>
+                            <p class="card-text">Brief description of the product.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small>$99.99</small>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -18,15 +18,13 @@ public class OrderController : Controller
         return View(orders);
     }
 
-    public ActionResult Details(int id)
+    public IActionResult Details(int id)
     {
-        Order order = _orderRepository.GetById(id);
-        if (order == null)
-        {
-            return NotFound();
-        }
-        return View(order);
+        var order = _orderRepository.GetById(id);
+        
+        return View();
     }
+
 
     public ActionResult Create()
     {
@@ -68,11 +66,8 @@ public class OrderController : Controller
     public ActionResult Delete(int id)
     {
         Order order = _orderRepository.GetById(id);
-        if (order == null)
-        {
-            return NotFound();
-        }
-        return View(order);
+        
+        return View();
     }
 
     [HttpPost, ActionName("Delete")]
