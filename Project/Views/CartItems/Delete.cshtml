@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Project.Models.Entities.CartItems
+
+@{
     ViewData["Title"] = "Delete Cart Item";
 }
 
@@ -42,8 +44,8 @@
     <!-- Delete Cart Item Section -->
     <section class="py-5">
         <div class="container">
-            <h2 class="section-title">Confirm Deletion</h2>
-            <form method="post">
+            <h2 class="section-title">Confirm Deletion</h2><a href="d:\semester 6\web\project\project\views\cartitems\delete.cshtml">d:\semester 6\web\project\project\views\cartitems\delete.cshtml</a>
+            <form asp-action="DeleteConfirmed" method="post">
                 <div class="mb-3">
                     <label for="productName" class="form-label">Product Name</label>
                     <input type="text" class="form-control" id="productName" placeholder="Product Name" readonly>

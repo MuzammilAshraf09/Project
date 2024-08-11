@@ -6,16 +6,16 @@ using Microsoft.Data.SqlClient;
 
 namespace Project.Models.Repositories
 {
-    public class CartItemRepository : ICartItemRepository
+    public class CartItemsRepository : ICartItemsRepository
     {
         private readonly string _connectionString;
 
-        public CartItemRepository()
+        public CartItemsRepository()
         {
             _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ClothDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         }
 
-        public void AddCartItem(CartItem cartItem)
+        public void AddCartItem(CartItems cartItem)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -44,9 +44,9 @@ namespace Project.Models.Repositories
             }
         }
 
-        public List<CartItem> GetCartItemsByUserId(int userId)
+        public List<CartItems> GetCartItemsByUserId(int userId)
         {
-            var cartItems = new List<CartItem>();
+            var cartItems = new List<CartItems>();
             using (var connection = new SqlConnection(_connectionString))
             {
                 var command = new SqlCommand("SELECT * FROM CartItems WHERE UserId = @UserId", connection);
@@ -57,7 +57,7 @@ namespace Project.Models.Repositories
                 {
                     while (reader.Read())
                     {
-                        var cartItem = new CartItem
+                        var cartItem = new CartItems
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             ProductId = reader.GetInt32(reader.GetOrdinal("ProductId")),
@@ -71,9 +71,9 @@ namespace Project.Models.Repositories
             return cartItems;
         }
 
-        public CartItem GetCartItemById(int id)
+        public CartItems GetCartItemById(int id)
         {
-            CartItem cartItem = null;
+            CartItems cartItem = null;
             using (var connection = new SqlConnection(_connectionString))
             {
                 var command = new SqlCommand("SELECT * FROM CartItems WHERE Id = @Id", connection);
@@ -84,7 +84,7 @@ namespace Project.Models.Repositories
                 {
                     if (reader.Read())
                     {
-                        cartItem = new CartItem
+                        cartItem = new CartItems
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             ProductId = reader.GetInt32(reader.GetOrdinal("ProductId")),

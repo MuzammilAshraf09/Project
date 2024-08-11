@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Project.Models.Entities.User
+
+@{
     ViewData["Title"] = "User Dashboard";
     var isLoggedIn = ViewData["IsLoggedIn"] as bool? ?? false;
     var username = ViewData["Username"] as string ?? string.Empty;

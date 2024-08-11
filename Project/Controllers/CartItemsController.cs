@@ -6,26 +6,26 @@ using System.Collections.Generic;
 
 namespace Project.Controllers
 {
-    public class CartItemController : Controller
+    public class CartItemsController : Controller
     {
-        private readonly ICartItemRepository _cartItemRepository;
+        private readonly ICartItemsRepository _cartItemsRepository;
 
-        public CartItemController()
+        public CartItemsController()
         {
-            _cartItemRepository = new CartItemRepository();
+            _cartItemsRepository = new CartItemsRepository();
         }
 
         // GET: CartItem
         public IActionResult Index(int userId)
         {
-            var cartItems = _cartItemRepository.GetCartItemsByUserId(userId);
+            var cartItems = _cartItemsRepository.GetCartItemsByUserId(userId);
             return View(cartItems);
         }
 
         // GET: CartItem/Details/5
         public IActionResult Details(int id)
         {
-            var cartItem = _cartItemRepository.GetCartItemById(id);
+            var cartItem = _cartItemsRepository.GetCartItemById(id);
             if (cartItem == null)
             {
                 return NotFound();
@@ -41,11 +41,11 @@ namespace Project.Controllers
 
         // POST: CartItem/Create
         [HttpPost]
-        public IActionResult Create([Bind("ProductId, Quantity, UserId")] CartItem cartItem)
+        public IActionResult Create(CartItems cartItem)
         {
             if (ModelState.IsValid)
             {
-                _cartItemRepository.AddCartItem(cartItem);
+                _cartItemsRepository.AddCartItem(cartItem);
                 return RedirectToAction(nameof(Index), new { userId = cartItem.UserId });
             }
             return View(cartItem);
@@ -54,7 +54,7 @@ namespace Project.Controllers
         // GET: CartItem/Delete/5
         public IActionResult Delete(int id)
         {
-            var cartItem = _cartItemRepository.GetCartItemById(id);
+            var cartItem = _cartItemsRepository.GetCartItemById(id);
             if (cartItem == null)
             {
                 return NotFound();
@@ -66,10 +66,10 @@ namespace Project.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var cartItem = _cartItemRepository.GetCartItemById(id);
+            var cartItem = _cartItemsRepository.GetCartItemById(id);
             if (cartItem != null)
             {
-                _cartItemRepository.RemoveCartItem(id);
+                _cartItemsRepository.RemoveCartItem(id);
             }
             return RedirectToAction(nameof(Index), new { userId = cartItem?.UserId });
         }

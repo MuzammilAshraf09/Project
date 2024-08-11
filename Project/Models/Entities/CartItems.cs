@@ -1,6 +1,6 @@
 ﻿namespace Project.Models.Entities
 {
-    public class CartItem
+    public class CartItems
     {
         public int Id { get; set; }
         public int ProductId { get; set; }

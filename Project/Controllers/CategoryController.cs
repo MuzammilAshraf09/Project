@@ -43,7 +43,7 @@
 
         // POST: Category/Create
         [HttpPost]
-        public IActionResult Create([Bind("CategoryId, Name, Description")] Category category)
+        public IActionResult Create(Category category)
         {
             if (ModelState.IsValid)
             {
@@ -66,12 +66,9 @@
 
         // POST: Category/Edit/5
         [HttpPost]
-        public IActionResult Edit(int id, [Bind("CategoryId, Name, Description")] Category category)
+        public IActionResult Edit( Category category)
         {
-            if (id != category.CategoryId)
-            {
-                return NotFound();
-            }
+            
 
             if (ModelState.IsValid)
             {

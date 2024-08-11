@@ -40,12 +40,12 @@ namespace Project.Controllers
 
         // POST: Product/Create
         [HttpPost]
-        public IActionResult Create([Bind("Name, Description, Price, ImageUrl, CategoryId")] Product product)
+        public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
                 _productRepository.Add(product);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return View(product);
         }
@@ -63,12 +63,9 @@ namespace Project.Controllers
 
         // POST: Product/Edit/5
         [HttpPost]
-        public IActionResult Edit(int id, [Bind("Id, Name, Description, Price, ImageUrl, CategoryId")] Product product)
+        public IActionResult Edit(Product product)
         {
-            if (id != product.Id)
-            {
-                return NotFound();
-            }
+            
 
             if (ModelState.IsValid)
             {
@@ -78,7 +75,7 @@ namespace Project.Controllers
             return View(product);
         }
 
-        // GET: Product/Delete/5
+        // GET: Product/Delete/
         public IActionResult Delete(int id)
         {
             var product = _productRepository.GetById(id);
@@ -89,7 +86,7 @@ namespace Project.Controllers
             return View(product);
         }
 
-        // POST: Product/Delete/5
+        // POST: Product/Delete/
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
