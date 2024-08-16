@@ -1,7 +1,15 @@
+using Project.Models.Interfaces;
+using Project.Models.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICartItemsRepository, CartItemsRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
 var app = builder.Build();
 

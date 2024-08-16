@@ -10,9 +10,10 @@ namespace Project.Controllers
     {
         private readonly ICartItemsRepository _cartItemsRepository;
 
-        public CartItemsController()
+        // Constructor injection of ICartItemsRepository
+        public CartItemsController(ICartItemsRepository cartItemsRepository)
         {
-            _cartItemsRepository = new CartItemsRepository();
+            _cartItemsRepository = cartItemsRepository;
         }
 
         // GET: CartItem

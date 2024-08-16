@@ -9,9 +9,9 @@ namespace Project.Controllers
     {
         private readonly IUserRepository _userRepository;
 
-        public UserController()
+        public UserController(IUserRepository userRepository)
         {
-            _userRepository = new UserRepository();
+            _userRepository = userRepository;
         }
 
         public IActionResult Login()
@@ -74,6 +74,7 @@ namespace Project.Controllers
 
                 if (!userExists)
                 {
+                   
                     _userRepository.Add(user);
                     Response.Cookies.Append("username", user.Username, new CookieOptions
                     {

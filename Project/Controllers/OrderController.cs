@@ -7,9 +7,10 @@ public class OrderController : Controller
 {
     private readonly IOrderRepository _orderRepository;
 
-    public OrderController()
+    // Constructor injection of IOrderRepository
+    public OrderController(IOrderRepository orderRepository)
     {
-        _orderRepository = new OrderRepository(); // Hardcoded repository instantiation
+        _orderRepository = orderRepository;
     }
 
     public ActionResult Index()

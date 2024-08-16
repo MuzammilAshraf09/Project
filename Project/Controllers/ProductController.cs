@@ -9,9 +9,9 @@ namespace Project.Controllers
     {
         private readonly IProductRepository _productRepository;
 
-        public ProductController()
+        public ProductController(IProductRepository productRepository)
         {
-            _productRepository = new ProductRepository(); // Hardcoded repository instance
+            _productRepository = productRepository;
         }
 
         // GET: Product

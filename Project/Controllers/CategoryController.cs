@@ -12,9 +12,10 @@
     {
         private readonly ICategoryRepository _categoryRepository;
 
-        public CategoryController()
+        // Constructor injection of ICategoryRepository
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            _categoryRepository =  new CategoryRepository();
+            _categoryRepository = categoryRepository;
         }
 
         // GET: Category

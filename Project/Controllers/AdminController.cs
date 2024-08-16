@@ -11,9 +11,10 @@ namespace ProjectWeb.Controllers
     {
         private readonly IAdminRepository _adminRepository;
 
-        public AdminController()
+        // Constructor injection of IAdminRepository
+        public AdminController(IAdminRepository adminRepository)
         {
-            _adminRepository = new AdminRepository();
+            _adminRepository = adminRepository;
         }
 
         public IActionResult Login()
