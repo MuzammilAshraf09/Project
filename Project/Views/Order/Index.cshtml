@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<Project.Models.Entities.Order>
+
 @{
     ViewData["Title"] = "Orders";
 }
@@ -39,36 +40,30 @@
             <h1 class="display-5">Orders</h1>
         </div>
     </header>
-
+    <a href="/User/Index" class="btn btn-primary">Go to Home</a>
     <!-- Orders Section -->
     <section class="py-5">
         <div class="container">
             <h2 class="section-title">Order List</h2>
             <div class="d-flex mb-3">
                 <a href="/Order/Create" class="btn btn-danger">Create New Order</a>
+            
+
             </div>
             <div class="row">
-                <!-- Static Order Items -->
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Order 1</h5>
-                            <p class="card-text">Order Date: January 1, 2024</p>
-                            <a href="/Order/Details/1" class="btn btn-primary">Details</a>
-                            <a href="/Order/Delete/1" class="btn btn-danger">Delete</a>
+                @foreach (var order in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Order @order.Id</h5>
+                                <p class="card-text">Order Date: @order.OrderDate.ToString("MMMM d, yyyy")</p>
+                                <a href="/Order/Details/@order.Id" class="btn btn-primary">Details</a>
+                                <a href="/Order/Delete/@order.Id" class="btn btn-danger">Delete</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Order 2</h5>
-                            <p class="card-text">Order Date: February 1, 2024</p>
-                            <a href="/Order/Details/2" class="btn btn-primary">Details</a>
-                            <a href="/Order/Delete/2" class="btn btn-danger">Delete</a>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </section>

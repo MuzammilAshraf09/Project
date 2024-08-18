@@ -12,7 +12,8 @@
 
         public CategoryRepository()
         {
-            _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ClothDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+
+            _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=E:\\PROJECT\\PROJECT\\PROJECT\\DATA\\MYDB.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         }
 
         public List<Category> GetAllCategories()
@@ -41,7 +42,7 @@
             return categories;
         }
 
-        public Category GetCategoryById(int id)
+        public Category GetById(int id)
         {
             Category category = null;
 
@@ -68,7 +69,7 @@
             return category;
         }
 
-        public void AddCategory(Category category)
+        public void Add(Category category)
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {

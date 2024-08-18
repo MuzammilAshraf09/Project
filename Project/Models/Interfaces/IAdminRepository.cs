@@ -2,7 +2,7 @@
 
 namespace Project.Models.Interfaces
 {
-    public interface IAdminRepository
+    public interface IAdminRepository 
     {
         Admin GetById(int id);
         List<Admin> GetAll();

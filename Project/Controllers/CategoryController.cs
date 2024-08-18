@@ -12,7 +12,6 @@
     {
         private readonly ICategoryRepository _categoryRepository;
 
-        // Constructor injection of ICategoryRepository
         public CategoryController(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
@@ -22,13 +21,14 @@
         public IActionResult Index()
         {
             var categories = _categoryRepository.GetAllCategories();
+            ViewBag.Categories = categories;
             return View(categories);
         }
 
         // GET: Category/Details/5
         public IActionResult Details(int id)
         {
-            var category = _categoryRepository.GetCategoryById(id);
+            var category = _categoryRepository.GetById(id);
            
             return View();
         }
@@ -45,7 +45,7 @@
         {
             if (ModelState.IsValid)
             {
-                _categoryRepository.AddCategory(category);
+                _categoryRepository.Add(category);
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
@@ -54,7 +54,7 @@
         // GET: Category/Edit/5
         public IActionResult Edit(int id)
         {
-            var category = _categoryRepository.GetCategoryById(id);
+            var category = _categoryRepository.GetById(id);
             if (category == null)
             {
                 return NotFound();
@@ -79,7 +79,7 @@
         // GET: Category/Delete/5
         public IActionResult Delete(int id)
         {
-            var category = _categoryRepository.GetCategoryById(id);
+            var category = _categoryRepository.GetById(id);
            
             return View();
         }

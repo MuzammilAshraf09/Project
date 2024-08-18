@@ -7,8 +7,7 @@ using Microsoft.Data.SqlClient;
 
 public class OrderRepository : IOrderRepository
 {
-    private readonly string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ClothDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-
+    private readonly string _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=E:\\PROJECT\\PROJECT\\PROJECT\\DATA\\MYDB.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
     public Order GetById(int id)
     {
         Order order = null;
@@ -56,7 +55,7 @@ public class OrderRepository : IOrderRepository
         return orders;
     }
 
-    public void Create(Order order)
+    public void Add(Order order)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {

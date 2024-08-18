@@ -1,6 +1,9 @@
-﻿
+﻿@model IEnumerable<Project.Models.Entities.CartItems>
+
 @{
     ViewData["Title"] = "Cart Items";
+    var totalQuantity = Model.Sum(item => item.Quantity);
+    var totalPrice = Model.Sum(item => item.Quantity * item.Product.Price); // Assuming `Product` has a `Price` property
 }
 
 <!DOCTYPE html>
@@ -40,6 +43,13 @@
             .btn-custom:hover {
                 background-color: #c00;
             }
+
+        .price-slip {
+            background-color: #333;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -55,44 +65,51 @@
         <div class="container">
             <h2 class="section-title">Your Cart</h2>
             <div class="row">
-                <!-- Static Cart Items -->
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="~/images/product1.jpeg" class="card-img-top" alt="Product 1" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">Product 1</h5>
-                            <p class="card-text">Quantity: 2</p>
-                            <a href="/CartItems/Details/1" class="btn btn-custom mb-2">Details</a>
-                            <a href="/CartItems/Delete/1" class="btn btn-danger mb-2">Delete</a>
+                <div class="container">
+                    @if (!Model.Any())
+                    {
+                        <div class="alert alert-info">
+                            Your cart is empty.
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- Existing code to display cart items -->
+                    }
+                </div>
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <!-- Placeholder for product image, update with actual path or logic -->
+                            <img src="~/images/placeholder.jpeg" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">Product ID: @item.ProductId</h5>
+                                <p class="card-text">Quantity: @item.Quantity</p>
+                                <p class="card-text">Price: @item.Product.Price</p> <!-- Assuming `Product` has a `Price` property -->
+                                <a href="/CartItems/Details/@item.Id" class="btn btn-custom mb-2">Details</a>
+                                <a href="/CartItems/Delete/@item.Id" class="btn btn-danger mb-2">Delete</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="~/images/product2.jpeg" class="card-img-top" alt="Product 2" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">Product 2</h5>
-                            <p class="card-text">Quantity: 1</p>
-                            <a href="/CartItems/Details/2" class="btn btn-custom mb-2">Details</a>
-                            <a href="/CartItems/Delete/2" class="btn btn-danger mb-2">Delete</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="~/images/product3.jpeg" class="card-img-top" alt="Product 3" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">Product 3</h5>
-                            <p class="card-text">Quantity: 5</p>
-                            <a href="/CartItems/Details/3" class="btn btn-custom mb-2">Details</a>
-                            <a href="/CartItems/Delete/3" class="btn btn-danger mb-2">Delete</a>
-                        </div>
-                    </div>
-                </div>
+                }
+            </div>
+            <!-- Price Slip -->
+            <div class="price-slip mt-4">
+                <h4>Total Products: @totalQuantity</h4>
+                <h4>Total Price: @totalPrice</h4>
+            </div>
+            <!-- Place Order Button -->
+            <div class="text-center mt-4">
+                <a href="/Order/PlaceOrder" class="btn btn-success">Place Order</a>
             </div>
             <!-- Create Cart Item Button -->
             <div class="text-center mt-4">
                 <a href="/CartItems/Create" class="btn btn-primary">Add New Item to Cart</a>
+            </div>
+            <!-- Back to Index Button -->
+            <div class="text-center mt-4">
+                <a href="/User/Index" class="btn btn-secondary">Back to Index</a>
             </div>
         </div>
     </section>

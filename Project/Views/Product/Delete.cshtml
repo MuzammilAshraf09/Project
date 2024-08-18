@@ -46,8 +46,8 @@
         <div class="container">
             <div class="card mb-4">
                 <div class="card-body">
-                    <p>Are you sure you want to delete the product with ID: <strong>123</strong>?</p>
-                    <form method="post">
+                    <p>Are you sure you want to delete the product with ID: <strong>@Model.Id</strong>?</p>
+                    <form asp-action="Delete" method="post">
                         <button type="submit" class="btn btn-danger">Delete</button>
                         <a href="/Product/Index" class="btn btn-secondary">Cancel</a>
                     </form>

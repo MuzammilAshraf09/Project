@@ -44,44 +44,20 @@
         <div class="container">
             <h2 class="section-title">Product List</h2>
             <div class="row">
-                <!-- Static Product Items -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="~/images/product1.jpeg" class="card-img-top" alt="Product 1" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">Product 1</h5>
-                            <p class="card-text">Short description of Product 1.</p>
-                            <a href="/Product/Details/1" class="btn btn-info">Details</a>
-                            <a href="/Product/Review" class="btn btn-info">Review</a>
-
+                @foreach (var product in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="@Url.Content($"~/images/{product.ImageUrl}")" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Name</h5>
+                                <p class="card-text">@product.Description</p>
+                                <a href="/Product/Details/@product.Id" class="btn btn-info">Details</a>
+                       
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="~/images/product2.jpeg" class="card-img-top" alt="Product 2" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">Product 2</h5>
-                            <p class="card-text">Short description of Product 2.</p>
-                            <a href="/Product/Details/2" class="btn btn-info">Details</a>
-                            <a href="/Product/Review" class="btn btn-info">Review</a>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="~/images/product3.jpeg" class="card-img-top" alt="Product 3" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">Product 3</h5>
-                            <p class="card-text">Short description of Product 3.</p>
-                            <a href="/Product/Details/3" class="btn btn-info">Details</a>
-                            <a href="/Product/Review" class="btn btn-info">Review</a>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- Add more products here as needed -->
+                }
             </div>
         </div>
     </section>

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 namespace Project.Models.Interfaces
 {
-    public interface ICartItemsRepository
+    public interface ICartItemsRepository 
     {
-        void AddCartItem(CartItems cartItem);
+        void Add(CartItems cartItem);
+        public void ClearCartForUser(int userId);
         void RemoveCartItem(int id);
         List<CartItems> GetCartItemsByUserId(int userId);
-        CartItems  GetCartItemById(int id);
+        CartItems GetById(int id);
+       
     }
 }

@@ -15,13 +15,16 @@
             background-color: #212121;
             color: #fff;
         }
+
         .card {
             background-color: #444;
             border: 1px solid #555;
         }
+
         .card-title, .card-footer {
             color: #fff;
         }
+
         .section-title {
             font-size: 1.5rem;
             margin-bottom: 1rem;
@@ -43,11 +46,12 @@
             <h2 class="section-title">Order Details</h2>
             <div class="card mb-4">
                 <div class="card-body">
-                    <!-- Displaying static content for now -->
-                    <h5 class="card-title">Order ID: 1</h5>
-                    <p class="card-text">Order Date: January 1, 2024</p>
-                    <p class="card-text">User ID: 123</p>
-                    <a href="/Order/Edit/1" class="btn btn-primary">Edit</a>
+                    <!-- Displaying Order Details -->
+                    <h5 class="card-title">Order ID: @Model.Id</h5>
+                    <p class="card-text">Order Date: @Model.OrderDate.ToString("MMMM d, yyyy")</p>
+                    <p class="card-text">User ID: @Model.UserId</p>
+                    <!-- Edit Button with dynamic Order ID -->
+                    <a href="/Order/Edit/@Model.Id" class="btn btn-primary">Edit</a>
                 </div>
             </div>
         </div>

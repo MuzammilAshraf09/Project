@@ -1,7 +1,7 @@
 ﻿@model Project.Models.Entities.CartItems
 
 @{
-    ViewData["Title"] = "Delete Cart Item";
+    ViewData["Title"] = "Delete CartItem";
 }
 
 <!DOCTYPE html>
@@ -41,22 +41,20 @@
         </div>
     </header>
 
-    <!-- Delete Cart Item Section -->
+    <!-- Delete Order Section -->
     <section class="py-5">
         <div class="container">
-            <h2 class="section-title">Confirm Deletion</h2><a href="d:\semester 6\web\project\project\views\cartitems\delete.cshtml">d:\semester 6\web\project\project\views\cartitems\delete.cshtml</a>
-            <form asp-action="DeleteConfirmed" method="post">
-                <div class="mb-3">
-                    <label for="productName" class="form-label">Product Name</label>
-                    <input type="text" class="form-control" id="productName" placeholder="Product Name" readonly>
+            <h2 class="section-title">Delete Cart Item</h2>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Are you sure you want to delete CartItem ID: 1?</h5>
+                    <form action="/CartItems/Delete" method="post">
+                        <input type="hidden" name="Id" value="@Model.Id">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <a href="/CartItems/Index" class="btn btn-secondary">Cancel</a>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="quantity" class="form-label">Quantity</label>
-                    <input type="number" class="form-control" id="quantity" placeholder="Quantity" readonly>
-                </div>
-                <button type="submit" class="btn btn-danger">Delete</button>
-                <a href="/CartItems/Index" class="btn btn-secondary">Cancel</a>
-            </form>
+            </div>
         </div>
     </section>
 

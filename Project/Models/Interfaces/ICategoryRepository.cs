@@ -7,8 +7,8 @@ namespace Project.Models.Interfaces
     public interface ICategoryRepository
     {
         List<Category> GetAllCategories();
-        Category GetCategoryById(int id);
-        void AddCategory(Category category);
+        Category GetById(int id);
+        void Add(Category category);
         void UpdateCategory(Category category);
         void DeleteCategory(int id);
     }

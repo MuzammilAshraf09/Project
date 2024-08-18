@@ -13,7 +13,8 @@ namespace Project.Models.Repositories
 
         public ProductRepository()
         {
-            _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ClothDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+
+            _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=E:\\PROJECT\\PROJECT\\PROJECT\\DATA\\MYDB.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         }
 
         public Product GetById(int id)
@@ -48,17 +49,37 @@ namespace Project.Models.Repositories
 
         public void Add(Product product)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            //using (var connection = new SqlConnection(_connectionString))
+            //{
+            //    var command = new SqlCommand("INSERT INTO Products (Name, Description, Price, ImageUrl, CategoryId) VALUES (@Name, @Description, @Price, @ImageUrl, @CategoryId)", connection);
+            //    command.Parameters.AddWithValue("@Name", product.Name);
+            //    command.Parameters.AddWithValue("@Description", product.Description ?? (object)DBNull.Value);
+            //    command.Parameters.AddWithValue("@Price", product.Price);
+            //    command.Parameters.AddWithValue("@ImageUrl", product.ImageUrl ?? (object)DBNull.Value);
+            //    command.Parameters.AddWithValue("@CategoryId", product.CategoryId);
+            //    connection.Open();
+            //    command.ExecuteNonQuery();
+            //}
+            try
             {
-                var command = new SqlCommand("INSERT INTO Products (Name, Description, Price, ImageUrl, CategoryId) VALUES (@Name, @Description, @Price, @ImageUrl, @CategoryId)", connection);
-                command.Parameters.AddWithValue("@Name", product.Name);
-                command.Parameters.AddWithValue("@Description", product.Description ?? (object)DBNull.Value);
-                command.Parameters.AddWithValue("@Price", product.Price);
-                command.Parameters.AddWithValue("@ImageUrl", product.ImageUrl ?? (object)DBNull.Value);
-                command.Parameters.AddWithValue("@CategoryId", product.CategoryId);
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    Console.WriteLine("Entered");
+                    var command = new SqlCommand("INSERT INTO Products (Name, Description, Price, ImageUrl, CategoryId) VALUES (@Name, @Description, @Price, @ImageUrl, @CategoryId)", connection);
+                    command.Parameters.AddWithValue("@Name", product.Name);
+                    command.Parameters.AddWithValue("@Description", product.Description ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Price", product.Price);
+                    command.Parameters.AddWithValue("@ImageUrl", product.ImageUrl ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@CategoryId", product.CategoryId);
 
-                connection.Open();
-                command.ExecuteNonQuery();
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Log exception details or throw to be handled further up
+                throw new Exception("There was an error adding the product to the database.", ex);
             }
         }
 
@@ -121,4 +142,5 @@ namespace Project.Models.Repositories
             return products;
         }
     }
+
 }

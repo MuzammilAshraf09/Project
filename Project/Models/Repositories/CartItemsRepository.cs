@@ -12,10 +12,11 @@ namespace Project.Models.Repositories
 
         public CartItemsRepository()
         {
-            _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ClothDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+
+            _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=E:\\PROJECT\\PROJECT\\PROJECT\\DATA\\MYDB.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         }
 
-        public void AddCartItem(CartItems cartItem)
+        public void Add(CartItems cartItem)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -44,6 +45,17 @@ namespace Project.Models.Repositories
             }
         }
 
+        public void ClearCartForUser(int userId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand("DELETE FROM CartItems WHERE UserId = @UserId", connection);
+                command.Parameters.AddWithValue("@UserId", userId);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
         public List<CartItems> GetCartItemsByUserId(int userId)
         {
             var cartItems = new List<CartItems>();
@@ -71,7 +83,7 @@ namespace Project.Models.Repositories
             return cartItems;
         }
 
-        public CartItems GetCartItemById(int id)
+        public CartItems GetById(int id)
         {
             CartItems cartItem = null;
             using (var connection = new SqlConnection(_connectionString))

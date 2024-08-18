@@ -1,4 +1,5 @@
-﻿
+﻿@model Project.Models.Entities.Order
+
 @{
     ViewData["Title"] = "Edit Order";
 }
@@ -45,15 +46,22 @@
         <div class="container">
             <h2 class="section-title">Edit Order</h2>
             <form action="/Order/Edit" method="post">
-                <input type="hidden" name="Id" value="1">
+                <!-- Hidden input for the Order ID -->
+                <input type="hidden" name="Id" value="@Model.Id">
+
+                <!-- Order Date Input -->
                 <div class="mb-3">
                     <label for="orderDate" class="form-label">Order Date</label>
-                    <input type="date" class="form-control" id="orderDate" name="OrderDate" value="2024-01-01" required>
+                    <input type="date" class="form-control" id="orderDate" name="OrderDate" value="@Model.OrderDate.ToString("yyyy-MM-dd")" required>
                 </div>
+
+                <!-- User ID Input -->
                 <div class="mb-3">
                     <label for="userId" class="form-label">User ID</label>
-                    <input type="number" class="form-control" id="userId" name="UserId" value="123" required>
+                    <input type="number" class="form-control" id="userId" name="UserId" value="@Model.UserId" required>
                 </div>
+
+                <!-- Update Button -->
                 <button type="submit" class="btn btn-danger">Update Order</button>
             </form>
         </div>

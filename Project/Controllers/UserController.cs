@@ -14,12 +14,6 @@ namespace Project.Controllers
             _userRepository = userRepository;
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
         public IActionResult Login(string username, string password)
         {
             var users = _userRepository.GetAll();
@@ -36,8 +30,14 @@ namespace Project.Controllers
 
             if (user != null)
             {
-                // Set cookie
+                // Set cookies for username and userId
                 Response.Cookies.Append("username", username, new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddDays(7),
+                    HttpOnly = true,
+                    Secure = true
+                });
+                Response.Cookies.Append("userId", user.Id.ToString(), new CookieOptions
                 {
                     Expires = DateTimeOffset.UtcNow.AddDays(7),
                     HttpOnly = true,
@@ -49,7 +49,6 @@ namespace Project.Controllers
             ModelState.AddModelError("", "Invalid login attempt.");
             return View(user);
         }
-
         public IActionResult SignUp()
         {
             return View();
@@ -74,9 +73,15 @@ namespace Project.Controllers
 
                 if (!userExists)
                 {
-                   
                     _userRepository.Add(user);
+                    // Set cookies for username and userId
                     Response.Cookies.Append("username", user.Username, new CookieOptions
+                    {
+                        Expires = DateTimeOffset.UtcNow.AddDays(7),
+                        HttpOnly = true,
+                        Secure = true
+                    });
+                    Response.Cookies.Append("userId", user.Id.ToString(), new CookieOptions
                     {
                         Expires = DateTimeOffset.UtcNow.AddDays(7),
                         HttpOnly = true,
@@ -89,16 +94,18 @@ namespace Project.Controllers
             }
             return View(user);
         }
-
         public IActionResult Logout()
         {
+            // Delete cookies for username and userId
             Response.Cookies.Delete("username");
+            Response.Cookies.Delete("userId");
             return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Index()
         {
-            // Check if user is logged in
+            // heck if user is logged in
+           
             var isLoggedIn = Request.Cookies["username"] != null;
             ViewData["IsLoggedIn"] = isLoggedIn;
             ViewData["Username"] = isLoggedIn ? Request.Cookies["username"] : string.Empty;

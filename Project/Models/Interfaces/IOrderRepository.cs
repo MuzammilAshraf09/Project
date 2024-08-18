@@ -3,11 +3,11 @@
 namespace Project.Models.Interfaces
 {
 
-    public interface IOrderRepository
+    public interface IOrderRepository 
     {
         Order GetById(int id);
         List<Order> GetAll();
-        void Create(Order order);
+        void Add(Order order);
         void Update(Order order);
         void Delete(int id);
     }

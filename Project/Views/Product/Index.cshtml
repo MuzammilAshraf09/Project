@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<Project.Models.Entities.Product>
+
 @{
     ViewData["Title"] = "Products";
 }
@@ -37,7 +38,10 @@
     <header class="container-fluid bg-dark text-center py-4">
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="display-5">Products</h1>
-            <a href="/Product/Create" class="btn btn-primary">Create New Product</a>
+            <div>
+                <a href="/Product/Create" class="btn btn-primary">Create New Product</a>
+                <button onclick="history.back()" class="btn btn-secondary">Back</button>
+            </div>
         </div>
     </header>
 
@@ -46,41 +50,21 @@
         <div class="container">
             <h2 class="section-title">Product List</h2>
             <div class="row">
-                <!-- Static Product Items -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="~/images/product1.jpeg" class="card-img-top" alt="Product 1" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">Product 1</h5>
-                            <p class="card-text">Short description of Product 1.</p>
-                            <a href="/Product/Details/1" class="btn btn-info">Details</a>
-                            <a href="/Product/Delete/1" class="btn btn-danger">Delete</a>
+                @foreach (var product in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="@Url.Content($"~/images/{product.ImageUrl}")" class="card-img-top" alt="@product.Name" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Name</h5>
+                                <p class="card-text">@product.Description</p>
+                                <a href="/Product/Details/@product.Id" class="btn btn-info">Details</a>
+                                <a href="/Product/Update/@product.Id" class="btn btn-warning">Update</a>
+                                <a href="/Product/Delete/@product.Id" class="btn btn-danger">Delete</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="~/images/product2.jpeg" class="card-img-top" alt="Product 2" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">Product 2</h5>
-                            <p class="card-text">Short description of Product 2.</p>
-                            <a href="/Product/Details/2" class="btn btn-info">Details</a>
-                            <a href="/Product/Delete/2" class="btn btn-danger">Delete</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="~/images/product3.jpeg" class="card-img-top" alt="Product 3" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">Product 3</h5>
-                            <p class="card-text">Short description of Product 3.</p>
-                            <a href="/Product/Details/3" class="btn btn-info">Details</a>
-                            <a href="/Product/Delete/3" class="btn btn-danger">Delete</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add more products here as needed -->
+                }
             </div>
         </div>
     </section>
