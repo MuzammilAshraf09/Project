@@ -16,48 +16,91 @@
     <style>
         body {
             background-color: #212121;
-            color: #fff;
+            color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .card {
-            background-color: #444;
-            border: 1px solid #555;
-        }
-
-        .card-title, .card-footer {
-            color: #fff;
+        .header {
+            background-color: #000;
+            color: #f8f9fa;
+            padding: 1.5rem 0;
+            text-align: center;
+            border-bottom: 2px solid #555;
         }
 
         .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #f8f9fa;
+        }
+
+        .card {
+            background-color: #333;
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            }
+
+        .card-title, .card-footer {
+            color: #f8f9fa;
+        }
+
+        .card img {
+            border-radius: 0.5rem;
         }
 
         .btn-custom {
-            background-color: #f00;
+            background-color: #17a2b8;
             color: #fff;
             border: none;
+            transition: background-color 0.3s ease;
         }
 
             .btn-custom:hover {
-                background-color: #c00;
+                background-color: #138496;
+            }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+            .btn-danger:hover {
+                background-color: #c82333;
             }
 
         .price-slip {
-            background-color: #333;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            color: #fff;
+            background-color: #444;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            color: #f8f9fa;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
+
+            .price-slip h4 {
+                margin-bottom: 1rem;
+            }
+
+        .action-buttons {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+            .action-buttons .btn {
+                width: 200px;
+            }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <header class="container-fluid bg-dark text-center py-4">
-        <div class="d-flex justify-content-between align-items-center">
-            <h1 class="display-5">Cart Items</h1>
-        </div>
+    <header class="header">
+        <h1>Cart Items</h1>
     </header>
 
     <!-- Cart Items Section -->
@@ -65,50 +108,43 @@
         <div class="container">
             <h2 class="section-title">Your Cart</h2>
             <div class="row">
-                <div class="container">
-                    @if (!Model.Any())
-                    {
-                        <div class="alert alert-info">
-                            Your cart is empty.
-                        </div>
-                    }
-                    else
-                    {
-                        <!-- Existing code to display cart items -->
-                    }
-                </div>
-                @foreach (var item in Model)
+                @if (!Model.Any())
                 {
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <!-- Placeholder for product image, update with actual path or logic -->
-                            <img src="~/images/placeholder.jpeg" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">
-                            <div class="card-body">
-                                <h5 class="card-title">Product ID: @item.ProductId</h5>
-                                <p class="card-text">Quantity: @item.Quantity</p>
-                                <p class="card-text">Price: @item.Product.Price</p> <!-- Assuming `Product` has a `Price` property -->
-                                <a href="/CartItems/Details/@item.Id" class="btn btn-custom mb-2">Details</a>
-                                <a href="/CartItems/Delete/@item.Id" class="btn btn-danger mb-2">Delete</a>
-                            </div>
-                        </div>
+                    <div class="alert alert-info">
+                        Your cart is empty.
                     </div>
                 }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="~/images/pro.jpg" class="card-img-top" alt="Product Image" style="height: 200px; object-fit: cover;">                                <div class="card-body">
+                                    <h5 class="card-title">Product ID: @item.ProductId</h5>
+                                    <p class="card-text">Quantity: @item.Quantity</p>
+                                    <p class="card-text">Price: $@item.Product.Price</p> <!-- Assuming `Product` has a `Price` property -->
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a href="/CartItems/Details/@item.Id" class="btn btn-custom mb-2">Details</a>
+                                    <a href="/CartItems/Delete/@item.Id" class="btn btn-danger mb-2">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
+
             <!-- Price Slip -->
             <div class="price-slip mt-4">
                 <h4>Total Products: @totalQuantity</h4>
-                <h4>Total Price: @totalPrice</h4>
+                <h4>Total Price: $@totalPrice</h4>
             </div>
-            <!-- Place Order Button -->
-            <div class="text-center mt-4">
-                <a href="/Order/PlaceOrder" class="btn btn-success">Place Order</a>
-            </div>
-            <!-- Create Cart Item Button -->
-            <div class="text-center mt-4">
-                <a href="/CartItems/Create" class="btn btn-primary">Add New Item to Cart</a>
-            </div>
-            <!-- Back to Index Button -->
-            <div class="text-center mt-4">
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="@Url.Action("PlaceOrder", "Order", new { userId = @Model.FirstOrDefault()?.UserId ?? 0 })" class="btn btn-success">Place Order</a>
+                <a href="@Url.Action("Create", "CartItems", new { userId = @Model.FirstOrDefault()?.UserId ?? 0 })" class="btn btn-primary">Add New Item</a>
                 <a href="/User/Index" class="btn btn-secondary">Back to Index</a>
             </div>
         </div>

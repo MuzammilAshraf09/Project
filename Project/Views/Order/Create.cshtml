@@ -1,6 +1,6 @@
-﻿@model Project.Models.Entities.Order
+﻿@model Project.Models.Entities.CartItems
 @{
-    ViewData["Title"] = "Create Order";
+    ViewData["Title"] = "Create Cart Item";
 }
 
 <!DOCTYPE html>
@@ -36,24 +36,23 @@
     <!-- Header -->
     <header class="container-fluid bg-dark text-center py-4">
         <div class="d-flex justify-content-between align-items-center">
-            <h1 class="display-5">Create Order</h1>
+            <h1 class="display-5">Create Cart Item</h1>
         </div>
     </header>
 
-    <!-- Create Order Section -->
+    <!-- Create Cart Item Section -->
     <section class="py-5">
         <div class="container">
-            <h2 class="section-title">Create New Order</h2>
-            <form action="/Order/Create" method="post">
+            <h2 class="section-title">Create New Cart Item</h2>
+            <form action="/CartItems/Create" method="post">
+                <input type="hidden" name="ProductId" value="@Model.ProductId" />
                 <div class="mb-3">
-                    <label for="orderDate" class="form-label">Order Date</label>
-                    <input type="date" class="form-control" id="orderDate" name="OrderDate" required>
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="Quantity" required>
                 </div>
-                <div class="mb-3">
-                    <label for="userId" class="form-label">User ID</label>
-                    <input type="number" class="form-control" id="userId" name="UserId" required>
-                </div>
-                <button type="submit" class="btn btn-danger">Create Order</button>
+                  <input type="hidden" name="UserId" value="@Model.UserId" />
+
+                <button type="submit" class="btn btn-danger">Add to Cart</button>
             </form>
         </div>
     </section>
@@ -62,4 +61,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

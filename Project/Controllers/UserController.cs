@@ -104,12 +104,20 @@ namespace Project.Controllers
 
         public IActionResult Index()
         {
-            // heck if user is logged in
-           
+            // Retrieve the UserId from the cookies
+            var userIdCookie = Request.Cookies["userId"];
+            if (!int.TryParse(userIdCookie, out int userId))
+            {
+                return RedirectToAction("Login", "User"); // Redirect to login if userId is not valid
+            }
+
             var isLoggedIn = Request.Cookies["username"] != null;
             ViewData["IsLoggedIn"] = isLoggedIn;
             ViewData["Username"] = isLoggedIn ? Request.Cookies["username"] : string.Empty;
-            return View();
+            User user = new User { Id = userId };
+            return View(user); // Pass userId directly to the view as the model
         }
+
+
     }
 }

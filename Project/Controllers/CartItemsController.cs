@@ -18,10 +18,17 @@ namespace Project.Controllers
         }
 
         // GET: CartItem
-        public IActionResult Index(int userId)
+        public IActionResult Index(int ? userId)
         {
+            // Retrieve userId from query string or cookie
+            userId = userId ?? int.Parse(Request.Cookies["UserId"] ?? "0");
 
-            var cartItems = _cartItemsRepository.GetCartItemsByUserId(1);
+            if (userId == 0)
+            {
+                return RedirectToAction("Index", "User"); // Redirect to User/Index if userId is not valid
+            }
+
+            var cartItems = _cartItemsRepository.GetCartItemsByUserId(userId.Value);
             int count = 0;
             foreach (var item in cartItems)
             {
@@ -37,53 +44,45 @@ namespace Project.Controllers
         public IActionResult Details(int id)
         {
             var cartItem = _cartItemsRepository.GetById(id);
-           
-            return View();
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+
+            // Fetch the product for the cart item
+            cartItem.Product = _productRepository.GetById(cartItem.ProductId);
+
+            return View(cartItem);
         }
 
-        // GET: CartItem/Create
+
+
         public IActionResult Create()
         {
-            // Get the user ID from the claims
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var uIdCookie = Request.Cookies["UserId"];
+            var cartItem = new CartItems
+            {
+                UserId = int.Parse(uIdCookie ?? "0"),
+            };
 
-            // Pass the user ID to the view using ViewBag or ViewData
-            ViewBag.UserId = userId;
-
-            return View();
+            return View(cartItem);
         }
+
+
         // POST: CartItem/Create
         [HttpPost]
         public IActionResult Create(CartItems cartItem)
         {
-            Console.WriteLine("recieved");
+            Console.WriteLine("received");
             if (ModelState.IsValid)
             {
-               Console.WriteLine(cartItem.Id);
+                Console.WriteLine(cartItem.Id);
                 _cartItemsRepository.Add(cartItem);
                 return RedirectToAction(nameof(Index), new { userId = cartItem.UserId });
             }
-            //foreach (var entry in ModelState)
-            //{
-            //    // Check if there are any errors in this entry
-            //    if (entry.Value.Errors.Count > 0)
-            //    {
-            //        Console.WriteLine($"Key: {entry.Key}");
-
-            //        // Log all errors for this entry
-            //        foreach (var error in entry.Value.Errors)
-            //        {
-            //            Console.WriteLine($"Error: {error.ErrorMessage}");
-            //            if (error.Exception != null)
-            //            {
-            //                Console.WriteLine($"Exception: {error.Exception.Message}");
-            //            }
-            //        }
-            //    }
-            //}
-            //Console.WriteLine("getooted");
             return View(cartItem);
         }
+
 
         // GET: CartItem/Delete/5
         public IActionResult Delete(int id)

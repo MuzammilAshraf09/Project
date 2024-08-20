@@ -47,11 +47,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="card mb-4">
-                        <img src="~/images/product-detail.jpg" class="card-img-top" alt="Product Detail" style="height: 300px; object-fit: cover;">
+                        <img src="~/images/jacket.webp" class="card-img-top" alt="Product Detail" style="height: 300px; object-fit: cover;">
                         <div class="card-body">
-                            <h5 class="card-title">Product Name</h5>
-                            <p class="card-text">Description of the product in the cart item.</p>
-                            <p class="card-text">Quantity: 2</p>
+                            <h5 class="card-title">@Model.Product?.Name</h5>
+                            <p class="card-text">@Model.Product?.Description</p>
+                            <p class="card-text">Quantity: @Model.Quantity</p>
                         </div>
                     </div>
                 </div>

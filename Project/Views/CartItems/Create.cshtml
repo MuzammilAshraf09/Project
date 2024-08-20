@@ -44,13 +44,13 @@
             <form action="/CartItems/Create" method="post">
                 <div class="mb-3">
                     <label for="productId" class="form-label">Product ID</label>
-                    <input type="number" class="form-control" id="productId" name="ProductId" required>
+                    <input type="number" class="form-control" id="productId" name="ProductId" value="ProductId" required>
                 </div>
                 <div class="mb-3">
                     <label for="quantity" class="form-label">Quantity</label>
                     <input type="number" class="form-control" id="quantity" name="Quantity" required>
                 </div>
-                <input type="hidden" name="UserId" value="1" />
+                <input type="hidden" name="UserId" value=@Model.UserId />
                 <button type="submit" class="btn btn-danger">Add to Cart</button>
             </form>
         </div>

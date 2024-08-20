@@ -32,10 +32,9 @@ public class OrderController : Controller
         
         return View(order);
     }
-    public IActionResult PlaceOrder()
+    public IActionResult PlaceOrder(int userId)
     {
         // Fetch cart items for the current user
-        var userId = 1; // Retrieve the current user's ID from session or authentication
         var cartItems = _cartItemRepository.GetCartItemsByUserId(userId);
 
         if (!cartItems.Any())
@@ -52,13 +51,15 @@ public class OrderController : Controller
 
         _orderRepository.Add(order);
 
-        // Optionally, you may want to associate the order with cart items here if needed
+        // Optionally associate the order with cart items
 
+        // Clear the cart for the user
         _cartItemRepository.ClearCartForUser(userId);
 
         // Redirect to order confirmation or success page
         return RedirectToAction("OrderConfirmation");
     }
+
 
     // GET: /Order/OrderConfirmation
     public IActionResult OrderConfirmation()
